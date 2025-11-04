@@ -1,0 +1,28 @@
+# pyproject.toml Guide: https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#writing-pyproject-toml
+
+[build-system]
+requires = ["hatchling >= 1.27.0"]         # A list of packages that are required to build the package
+build-backend = "hatchling.build"       # The name of the Python object that frontends will use to perform the build
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/matrix"]
+
+
+[project]
+name = "lin-alg"                        # Name of the project
+version = "0.0.1"                       # Version of the project
+authors = [                             # Authors of the project
+    { name = "Joseph Samyn", email = "joseph.j.samyn@gmail.com" }
+]
+description = "A desktop linear algebra calculator and library."        # Project description
+readme = "README.md"                    # README file location
+requires-python = ">=3.12.0"            # Specify which Python version is required
+classifiers = [                         # Additional metadata about package, in this case: 
+    "Programming Language :: Python :: 3",  # Only compatible with Python 3
+    "Operating System :: OS Independent",  # Runs on any operating system
+]
+
+# Any additional links to be displayed in PyPI
+[project.urls]
+# Homepage = 
+# Issues = 
