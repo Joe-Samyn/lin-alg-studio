@@ -4,8 +4,9 @@
 requires = ["hatchling >= 1.27.0"]         # A list of packages that are required to build the package
 build-backend = "hatchling.build"       # The name of the Python object that frontends will use to perform the build
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/matrix"]
+# uncomment if code resides in folder that are named something other than project name
+#[tool.hatch.build.targets.wheel]
+#packages = ["src/matrix"]
 
 
 [project]
