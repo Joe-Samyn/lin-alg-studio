@@ -10,10 +10,10 @@ class TestMatrix(unittest.TestCase):
         expList = [[0] * cols] * rows 
 
         # Act
-        m = Matrix(rows=rows, columns=cols)
+        m = Matrix(m=rows, n=cols)
         
         # Assert
-        self.assertEqual(expList, m.m)
+        self.assertEqual(expList, m.data)
         
 
     def test_createMatrixWithMatrix_CreatesMatrix(self):
@@ -24,4 +24,24 @@ class TestMatrix(unittest.TestCase):
         m = Matrix(matrix=exp)
 
         # Assert
-        self.assertEqual(m, exp)
+        self.assertEqual(m.data, exp)
+
+    def test_createMatrixWithDifferentSizeRows_PadsAllRowsToLongest(self):
+        # Arrange
+        exp_col_size = 5
+        l = [
+            [1, 2, 3],
+            [1, 2, 3, 4, 5],
+            [1, 3]
+        ]
+
+        # Act
+        m = Matrix(matrix=l)
+        row_one_size =len(m.data[0])
+        row_two_size = len(m.data[1])
+        row_three_size = len(m.data[2])
+
+        # Assert
+        self.assertEqual(row_one_size, exp_col_size)
+        self.assertEqual(row_two_size, exp_col_size)
+        self.assertEqual(row_three_size, exp_col_size)
