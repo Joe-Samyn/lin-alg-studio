@@ -45,3 +45,13 @@ class TestMatrix(unittest.TestCase):
         self.assertEqual(row_one_size, exp_col_size)
         self.assertEqual(row_two_size, exp_col_size)
         self.assertEqual(row_three_size, exp_col_size)
+
+    def test_createIdentityMatrixWithValidM_ReturnsMxMIdentityMatrix(self):
+        # Arrange
+        m = 5
+
+        # Act
+        I = Matrix.identity(size=m)
+
+        # Assert
+        self.assertEqual()

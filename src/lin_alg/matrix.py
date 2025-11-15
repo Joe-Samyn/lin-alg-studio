@@ -21,6 +21,7 @@ class Matrix:
         n : int, optional
             Number of columns for the matrix when `matrix` is not provided. Default is 0.
         """
+        # TODO: Do we need to validate any of the parameters here? 
         if matrix is not None:
             self.n = 0
             # Determine longest row 
@@ -42,4 +43,33 @@ class Matrix:
             self.m = m
             self.n = n
 
+    @staticmethod
+    def identity(size: int) -> "Matrix":
+        """Creates a square MxM identity matrix.
+        Parameters
+        ----------
+        size : int
+            The size of the square identity matrix (number of rows / columns).
+            Must be greater than 0. 
+        
+        Returns
+        -------
+        Matrix
+            An instance of an MxM identity matrix
 
+        Raises
+        ------
+        ValueError 
+            if m is not greater than 0. 
+        
+        Examples
+        --------
+        >>> Matrix.identity(3)
+        [[1, 0, 0],
+        [0, 1, 0],
+        [0, 0, 1]]
+        """
+        # TODO: Diagonal needs to be 1's
+        if size <= 0:
+            raise ValueError("`m` mus be greater than 0.")
+        return Matrix(m=size, n=size)
