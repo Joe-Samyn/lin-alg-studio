@@ -1,4 +1,8 @@
 
+"""
+TODO: Figure out how to make size readonly. If the matrix size needs to be changed, a new matrix will need to be created. 
+"""
+
 
 class Matrix: 
     """An two dimensional array of numbers with dimensions M x N, where M is the number
@@ -21,7 +25,6 @@ class Matrix:
         n : int, optional
             Number of columns for the matrix when `matrix` is not provided. Default is 0.
         """
-        # TODO: Do we need to validate any of the parameters here? 
         if matrix is not None:
             self.n = 0
             # Determine longest row 
@@ -39,9 +42,45 @@ class Matrix:
             self.m = len(matrix)
 
         elif matrix is None:
-            self.data = [[0] * n] * m
+            self.data = [[0] * n for _ in range(m)] 
             self.m = m
             self.n = n
+    
+    def __getitem__(self, indices):
+        """NOTE: The slicing operation currently only supports [:, col_index]. This allows an entire column to be retrieved.
+        There will be future enhancements to implement full slicing functionality.
+        """
+        # Accessing entire row
+        if isinstance(indices, int):
+            return self.data[indices]
+        
+        # Accessing element
+        elif isinstance(indices, tuple):
+            row, col = indices
+
+            # Accessing slice of row or full column
+            if isinstance(row, slice):
+                column_vector = []
+                for row_vector in self.data:
+                    column_vector.append(row_vector[col])
+                return column_vector
+            else:
+                return self.data[row][col]
+        else:
+            # TODO: may want to error? 
+            pass
+
+    def __setitem__(self, indicies, value):
+        """NOTE: The current splicing syntax only supports editing a single element at a time.
+        There will be future enhancements to support full row and column updates.
+        """
+        if isinstance(indicies, tuple):
+            row, col = indicies
+            self.data[row][col] = value
+        else:
+            # TODO: May want to raise error
+            pass
+
 
     @staticmethod
     def identity(size: int) -> "Matrix":
@@ -69,7 +108,10 @@ class Matrix:
         [0, 1, 0],
         [0, 0, 1]]
         """
-        # TODO: Diagonal needs to be 1's
         if size <= 0:
             raise ValueError("`m` mus be greater than 0.")
-        return Matrix(m=size, n=size)
+        
+        idm = Matrix(m=size, n=size)
+        for i in range(0, size): 
+            idm.data[i][i] = 1
+        return idm

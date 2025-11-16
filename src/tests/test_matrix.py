@@ -46,12 +46,35 @@ class TestMatrix(unittest.TestCase):
         self.assertEqual(row_two_size, exp_col_size)
         self.assertEqual(row_three_size, exp_col_size)
 
-    def test_createIdentityMatrixWithValidM_ReturnsMxMIdentityMatrix(self):
+    def test_matrixElementAccess_returnsSingleElement(self):
         # Arrange
-        m = 5
+        matrix = Matrix(matrix=[[1, 2, 3], [4, 5, 6]])
+        exp = 2
 
         # Act
-        I = Matrix.identity(size=m)
+        res = matrix[0, 1]
 
         # Assert
-        self.assertEqual()
+        self.assertEqual(res, exp)
+    
+    def test_matrixRowAccess_returnsEntireRow(self):
+        # Arrange
+        matrix = Matrix(matrix=[[1, 2, 3], [4, 5, 6]])
+        exp = [1, 2, 3]
+
+        # Act
+        res = matrix[0]
+
+        # Assert
+        self.assertEqual(exp, res)
+    
+    def test_matrixColumnAccess_returnsEntireColumn(self):
+        # Arrange
+        matrix = Matrix(matrix=[[1, 2, 3], [4, 5, 6]])
+        exp = [2, 5]
+
+        # Act
+        res = matrix[:, 1]
+
+        # Assert
+        self.assertEqual(res, exp)
