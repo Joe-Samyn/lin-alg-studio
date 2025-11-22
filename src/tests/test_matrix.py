@@ -78,3 +78,45 @@ class TestMatrix(unittest.TestCase):
 
         # Assert
         self.assertEqual(res, exp)
+
+    def test_matrixAddition_returnsNewSumMatrix(self):
+        # Arrange
+        exp = Matrix(matrix=[
+            [6, 8],
+            [10, 12]
+        ])
+        A = Matrix(matrix=[
+            [1, 2],
+            [3, 4]
+        ])
+
+        B = Matrix(matrix=[
+            [5, 6],
+            [7, 8]
+        ])
+
+        # Act
+        result = A + B
+
+        # Assert
+        self.assertEqual(result[0,0], exp[0,0])
+        self.assertEqual(result[0,1], exp[0,1])
+        self.assertEqual(result[1,0], exp[1,0])
+        self.assertEqual(result[1,1], exp[1,1])
+
+    def test_matrixAddition_raisesErrorWhenMatricesDifferentDimensions(self):
+        # Arrange
+        A = Matrix(matrix=[
+            [1, 2],
+            [3, 4]
+        ])
+
+        B = Matrix(matrix=[
+            [5, 6],
+            [7, 8],
+            [8, 9]
+        ])
+
+        # Act & Assert
+        with self.assertRaises(ValueError):
+            A + B

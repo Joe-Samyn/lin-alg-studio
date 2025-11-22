@@ -1,6 +1,7 @@
 
 """
 TODO: Figure out how to make size readonly. If the matrix size needs to be changed, a new matrix will need to be created. 
+TODO: Change properties from `n` and `m` to `rows` and `columns`
 """
 
 
@@ -81,6 +82,17 @@ class Matrix:
             # TODO: May want to raise error
             pass
 
+    def __add__(self, other: 'Matrix'):
+        """TODO: Document function"""
+        if self.m != other.m or self.n != other.n:
+            raise ValueError("Matrices must be the same dimensions when performing matrix addition.")
+        
+        sum_matrix = Matrix(m=self.m, n=self.n)
+
+        for row in range(0, self.m):
+            for col in range(0, self.n):
+                sum_matrix[row,col] = self[row,col] + other[row,col]
+        return sum_matrix
 
     @staticmethod
     def identity(size: int) -> "Matrix":
