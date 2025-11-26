@@ -93,6 +93,31 @@ class Matrix:
             for col in range(0, self.n):
                 sum_matrix[row,col] = self[row,col] + other[row,col]
         return sum_matrix
+    
+    def __mul__(self, other: 'Matrix') -> 'Matrix':
+        """Multiplies two matrices. 
+        
+        Note: This multiplies using elementwise multiplication. This will be optimized at a later time.
+        """
+        # Columns of self need to match rows of other
+        if self.n != other.m:
+            raise ValueError("The dimensions of the matrices do not align properly for matrix multiplication.")
+
+        C = Matrix(m=self.m, n=other.n)
+        for r in range(0, self.m):
+            row = self.data[r]
+            # Have row in A 
+            for c in range(0, other.n):
+                col = other[:,c]
+                element = 0
+                for i in range(0, len(row)):
+                    element += row[i] * col[i]
+                
+                C[r, c] = element
+
+        return C
+        
+
 
     @staticmethod
     def identity(size: int) -> "Matrix":
