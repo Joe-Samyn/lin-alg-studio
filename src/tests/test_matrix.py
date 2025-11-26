@@ -120,3 +120,73 @@ class TestMatrix(unittest.TestCase):
         # Act & Assert
         with self.assertRaises(ValueError):
             A + B
+
+    def test_matrixMultiplicationSquareMatrix_returnsSquareProductMatrix(self):
+        # Arrange
+        A = Matrix(matrix=[
+            [1, 2],
+            [3, 4]
+        ])
+
+        B = Matrix(matrix=[
+            [2, 2],
+            [3, 3]
+        ])
+
+        exp = Matrix(matrix=[
+            [8, 8],
+            [18, 18]
+        ])
+
+        exp_dim = (2, 2)
+
+        # Act
+        C = A * B
+        result_dim = (C.m, C.n)
+
+        # Assert
+        self.assertEqual(C.data, exp.data)
+        self.assertEqual(result_dim, exp_dim)
+
+    def test_matrixMultiplicationRectangularMatrix_returnsProperProductMatrix(self):
+        # Arrange
+        A = Matrix(matrix=[
+            [1, 2, 3],
+            [4, 5, 6]
+        ])
+
+        B = Matrix(matrix=[
+            [1, 2],
+            [3, 4],
+            [3, 2]
+        ])
+
+        exp = Matrix(matrix=[
+            [16, 16],
+            [37, 40]
+        ])
+        exp_dim = (2, 2)
+
+        # Act
+        C = A * B
+        result_dim = (C.m, C.n)
+
+        # Assert
+        self.assertEqual(C.data, exp.data)
+        self.assertEqual(result_dim, exp_dim)
+
+    def test_matrixMultiplicationInvalidDimensions_raisedValueError(self):
+        # Arrange
+        A = Matrix([
+            [1, 2],
+            [3, 4]
+        ])
+
+        B = Matrix([
+            [1, 2, 3, 4],
+            [5, 5, 6, 7],
+            [4, 3, 5, 6]
+        ])
+
+        with self.assertRaises(ValueError):
+            C = A * B
