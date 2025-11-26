@@ -82,8 +82,38 @@ class Matrix:
             # TODO: May want to raise error
             pass
 
-    def __add__(self, other: 'Matrix'):
-        """TODO: Document function"""
+    def __add__(self, other: 'Matrix') -> 'Matrix':
+        """Adds two matrices, A (m x n) and B (m x n) together.
+        
+        Parameters
+        ----------
+        other: Matrix
+            The matrix to add.
+            
+        Returns
+        -------
+        Matrix
+            A new instance of Matrix whose elements are the sum of corresponding elements in A & B.
+            
+        Raises
+        ------
+        ValueError
+            If self.m != other.m or self.n != other.n (i.e. dimension of A != dimension of B)
+
+        Notes
+        -----
+        Complexity: O(m * n)
+            
+        Examples
+        --------
+        >>> A = Matrix([[1, 2],[3, 4]])
+        >>> B = Matrix([[3, 4],[5, 6]])
+
+        >>> C = A + B  # results in 2x2
+        >>> C.data
+        [[4, 6], [8, 10]]
+
+        """
         if self.m != other.m or self.n != other.n:
             raise ValueError("Matrices must be the same dimensions when performing matrix addition.")
         
@@ -94,10 +124,43 @@ class Matrix:
                 sum_matrix[row,col] = self[row,col] + other[row,col]
         return sum_matrix
     
+    # TODO: Much more optimal ways to perform matrix multiplication
     def __mul__(self, other: 'Matrix') -> 'Matrix':
-        """Multiplies two matrices. 
+        """Multiplies two matrices, A (m x n) and B (n x k). 
+
+        The number of columns in A (n) must equal the number of rows in B (n). 
+
+            A     *    B    =     C
+         (m x n)    (n x k)    (m x k)
+
+        Parameters
+        ----------
+        other: Matrix
+            The 'B' matrix with dimensions (n x k).
+
+        Returns
+        -------
+        Matrix
+            A new instance of an (m x k) matrix that is the product of A * B. 
+
+        Raises
+        -------
+        ValueError
+            If self.n != other.m (i.e. columns of A != rows of B) 
+
+        Notes
+        ------
+        Performance will be optimized in a future release. 
+        Complexity: O(m * n * k) 
         
-        Note: This multiplies using elementwise multiplication. This will be optimized at a later time.
+        Examples
+        --------
+        >>> A = Matrix([[1, 2], [3, 4]])
+        >>> B = Matrix([[3, 4], [4, 5]])
+        >>> C = A * B   # Result is a 2x2 square matrix
+        >>> C.data
+        [[11, 14], [25, 32]]
+
         """
         # Columns of self need to match rows of other
         if self.n != other.m:
